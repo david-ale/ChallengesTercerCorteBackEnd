@@ -3,15 +3,24 @@ const router = express.Router()
 const { check } = require('express-validator')
 const { crearUsuario, loginUsuario, revalidarToken } = require('../controllers/auth')
 const { validarCampos } = require('../middlewares/validar-campos')
+const { validarContraseña } = require('../middlewares/validar-contraseña')
 
-router.post('/',loginUsuario)
+router.post(
+    '/',
+    [
+        check('email', 'Debe introducir el email para poder iniciar sesion').not().isEmpty(),
+        check('password',).isLength({ min: 6 }),
+        validarCampos
+    ], 
+    loginUsuario)
 
 router.post(
     '/new',
     [
         check('name', 'El nombre es obligatorio').not().isEmpty(),
         check('email', 'El email es obligatorio').isEmail(),
-        check('password', 'La contraseña debe ser de mínimo 6 caracteres').isLength({ min: 6 }),
+        check('password',).isLength({ min: 6 }),
+        validarContraseña,
         validarCampos
     ],
     crearUsuario)
