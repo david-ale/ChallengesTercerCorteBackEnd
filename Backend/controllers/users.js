@@ -17,3 +17,4 @@ const listarUsuarios = async (req, res = express.request) => {
         })
     }
 }
+

@@ -49,17 +49,18 @@ const loginUsuario = async (req, res = express.response) => {
         }
 
         const token = await(generarJWT(usuario.id, usuario.name))
-        res.status(200).json({
+        return (res.status(200).json({
             ok: true,
             usuario,
             token
-        })
+        }))
     } catch(error){
         console.log(error)
-        res.status(500).json({
+       return ( res.status(500).json({
             ok:false,
             error
         })
+       )
     }
 }
 
@@ -67,10 +68,10 @@ const revalidarToken = async (req, res = express.response) => {
     const {uid, name} = req
     const token = await(generarJWT(uid, name))
 
-    res.json({
+    return (res.json({
         ok: true,
         token
-    })
+    }))
 }
 
 module.exports = {
