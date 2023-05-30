@@ -38,7 +38,7 @@ const listarTasks = async (req, res = express.request) => {
 }
 
 const actualizarTask = async (req, res = express.request) => {
-    const { taskId } = req.params;
+    const { taskId } = req.params.id;
 
     try {
         const updatedTask = await Task.findByIdAndUpdate(taskId, req.body, { new: true });
@@ -64,7 +64,7 @@ const actualizarTask = async (req, res = express.request) => {
 };
 
 const eliminarTask = async (req, res = express.request) => {
-    const { taskId } = req.params;
+    const { taskId } = req.params.id;
 
     try {
         const deletedTask = await Task.findByIdAndDelete(taskId);
